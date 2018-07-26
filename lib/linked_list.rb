@@ -1,50 +1,43 @@
 class LinkedList
   attr_accessor :head
 
-  def sortedInsert(values)
+  def to_s
+    "nodes: #{node_count}: #{output_results}"
+  end
+
+  def sorted_insert(values)
     if values.is_a?(Array)
       nodes = []
-      values.each{|v| nodes << insertValueSorted(v)}
+      values.each{|v| nodes << insert_alue_sorted(v)}
       return nodes
     else
-      return insertValueSorted(values)
+      return insert_value_sorted(values)
     end
   end
 
-  def outputResults()
+  def node_count
+    count = 0
+    current = head
+    while !current.nil?
+      count += 1
+      current = current.right
+    end
+    count
+  end
+
+  def output_results
     output = []
     node = self.head
     while !node.nil?
       output << node.value
       node = node.right
     end
-    puts output.join(',')
-  end
-
-  def self.doIt
-    l=LinkedList.new
-    l.sortedInsert(2)
-    l.outputResults()
-    l.sortedInsert(3)
-    l.outputResults()
-    l.sortedInsert(10)
-    l.outputResults()
-    l.sortedInsert(19)
-    l.outputResults()
-    l.sortedInsert(7)
-    l.outputResults()
-    l.sortedInsert(1)
-    l.outputResults()
-
-
+    return output.join(',')
   end
 
   private
 
-  def insertValueSorted(value)
-    # insert 2
-    # 1,2,3,4,5
-    #   p
+  def insert_value_sorted(value)
     if self.head.nil?
       self.head = LinkedListNode.new(value)
     elsif self.head.value >= value
