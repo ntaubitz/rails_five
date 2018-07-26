@@ -1,24 +1,8 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+* What the heck is this thing?
 
-Things you may want to cover:
+This is a Rails 5 API project that I use to explore new things in Ruby and Rails. Take it for what it is.
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* lib/linked_list.rb (LinkedList)
+** GET /linked_lists/sorted_insert 
