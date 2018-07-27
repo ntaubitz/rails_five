@@ -25,14 +25,46 @@ class LinkedList
     count
   end
 
-  def output_results
+  def find_node(value)
+    return nil unless self.head
+    current = self.head
+    while current
+      return current if current.value == value
+      current = current.right
+    end
+  end
+
+  def delete_node(node)
+    return if self.head.nil?
+
+    # node is head
+    if node.value == self.head.value
+      self.head = self.head.right
+      return
+    end
+
+    # node is in the chain
+    current = self.head
+    previous = nil
+    while !current.right.nil? && current.value < node.value
+      previous = current
+      current = current.right
+    end
+    previous.right = current.right
+  end
+
+  def values
     output = []
     node = self.head
     while !node.nil?
       output << node.value
       node = node.right
     end
-    return output.join(',')
+    output
+  end
+
+  def output_results
+    return values.join(',')
   end
 
   private

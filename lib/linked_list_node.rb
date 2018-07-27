@@ -6,4 +6,8 @@ class LinkedListNode
     self.value = value
     self.right = right
   end
+
+  def to_s
+    "Node value: #{self.value} right?: #{!self.right.nil?}"
+  end
 end
