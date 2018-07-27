@@ -66,4 +66,65 @@ class BinaryTreeTest < ActiveSupport::TestCase
     # the right side from root
     assert 3 == tree.minimum_depth
   end
+
+  test 'maximum path sum is 6' do
+    tree = BinaryTree.new(
+      {
+        weight: 1,
+        nodes: {
+          left: {
+            weight: 3,
+            nodes: {left: nil, right: nil}
+          },
+          right: {
+            weight: 2,
+            nodes: {left: nil, right: nil}
+          }
+        }
+      }
+    )
+    assert 6 == tree.maximum_path_sum
+  end
+
+  test 'maximum path sum is 42' do
+    tree = BinaryTree.new(
+      {
+        weight: 10,
+        nodes: {
+          left: {
+            weight: 10,
+            nodes: {
+              left: {
+                weight: -25,
+                nodes: {
+                  left: {
+                    weight: 4,
+                    nodes: {left:nil,right:nil}
+                  },
+                  right: {
+                    weight: 3,
+                    nodes: {left:nil,right:nil}
+                  }
+                }
+              },
+              right: nil
+            }
+          },
+          right: {
+            weight: 2,
+            nodes: {
+              left: {
+                weight: 1,
+                nodes: {left:nil,right:nil}
+              }, right: {
+                weight: 20,
+                nodes: {left:nil,right:nil}
+              }
+            }
+          }
+        }
+      }
+    )
+    assert 42 == tree.maximum_path_sum
+  end
 end

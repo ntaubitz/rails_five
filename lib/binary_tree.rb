@@ -3,7 +3,8 @@ class BinaryTree
 
   def initialize(tree_json=nil)
     unless tree_json.nil?
-      self.root = from_json(JSON.parse(tree_json).with_indifferent_access)
+      json = tree_json.is_a?(Hash) ? tree_json : JSON.parse(tree_json).with_indifferent_access
+      self.root = from_json(json)
     end
   end
 
@@ -30,20 +31,45 @@ class BinaryTree
     find_minimum_node_depth(self.root, 1)
   end
 
+  def maximum_path_sum
+    return 0 if self.root.nil?
+
+    @max = 0
+    find_maximum_sum_path(self.root)
+    @max
+  end
+
   private
+
+  def find_maximum_sum_path(node)
+    return 0 if node.nil?
+
+    left_sum = find_maximum_sum_path(node.left)
+    right_sum = find_maximum_sum_path(node.right)
+
+    max_single = [([left_sum, right_sum].max + node.weight), node.weight].max
+
+    max_top = [max_single, (left_sum + right_sum + node.weight)].max
+
+    @max = [@max, max_top].max
+    max_single
+  end
 
   def find_minimum_node_depth(node, current_depth)
     # You are a leaf, final depth
     return current_depth if node.is_leaf?
     # You have 2 branches or 1
-    if !node.left.nil? && !node.right.nil?
-      left_depth = find_minimum_node_depth(node.left, current_depth + 1)
-      right_depth = find_minimum_node_depth(node.right, current_depth + 1)
-      return left_depth < right_depth ? left_depth : right_depth
-    else
-      return find_minimum_node_depth(node.left, current_depth + 1) unless node.left.nil?
+    if node.left.nil?
       return find_minimum_node_depth(node.right, current_depth + 1) unless node.right.nil?
     end
+
+    if node.right.nil?
+      return find_minimum_node_depth(node.left, current_depth + 1) unless node.left.nil?
+    end
+
+    left_depth = find_minimum_node_depth(node.left, current_depth + 1)
+    right_depth = find_minimum_node_depth(node.right, current_depth + 1)
+    return left_depth < right_depth ? left_depth : right_depth
   end
 
   def from_json(json)
