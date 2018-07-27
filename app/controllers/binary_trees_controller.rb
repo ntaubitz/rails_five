@@ -1,0 +1,3 @@
+class BinaryTreesController < ApplicationController
+
+end
